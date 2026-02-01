@@ -5,33 +5,39 @@ import lovesvg2 from "./assets/Love In The Air SVG Cut File.svg";
 export default function Page() {
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
+  const [playMusic, setPlayMusic] = useState(false);
+
   const yesButtonSize = noCount * 20 + 16;
 
   const handleNoClick = () => {
-    setNoCount(noCount + 1);
+    setPlayMusic(true);
+    setNoCount((prev) => prev + 1);
+  };
+
+  const handleYesClick = () => {
+    setPlayMusic(true);
+    setYesPressed(true);
   };
 
   const getNoButtonText = () => {
     const phrases = [
-      "No",
-      "Are you sure?",
-      "Really sure?",
-      "Think again!",
-      "Last chance!",
-      "Surely not?",
-      "You might regret this!",
-      "Give it another thought!",
-      "Are you absolutely certain?",
-      "This could be a mistake!",
-      "Have a heart!",
-      "Don't be so cold!",
-      "Change of heart?",
-      "Wouldn't you reconsider?",
-      "Is that your final answer?",
-      "You're breaking my heart ;(",
-      "Is that your final answer?",
-      "You're breaking my heart ;(",
-      "Plsss? :( You're breaking my heart",
+      "No 💔",
+      "Are you sure? 😅",
+      "Thoda soch lo na…",
+      "Really? Pura pakka?",
+      "Picture abhi baaki hai, mere dost 🎬",
+      "Ek baar phir se dil se socho ❤️",
+      "Itna bhi gussa acha nahi hota 😌",
+      "Yeh 'No' thoda jaldi nahi ho gaya?",
+      "SRK kehte hain: Dil se sochna chahiye 🫶",
+      "Bas ek chance… filmy wala 😇",
+      "Kuch kuch hota hai, tum nahi samjhogi 😉",
+      "Palat… palat… palat! 😆",
+      "Aise kaise 'No' bol diya? 😭",
+      "Yeh dil hai… koi switch nahi 💔",
+      "Final answer? Interval aa jayega 🎥",
+      "Last chance before dramatic music 🎻",
+      "Plsss? Varna Devdas ban jaunga 🍷😭",
     ];
 
     return phrases[Math.min(noCount, phrases.length - 1)];
@@ -39,11 +45,27 @@ export default function Page() {
 
   return (
     <div className="overflow-hidden flex flex-col items-center justify-center pt-4 h-screen -mt-16 selection:bg-rose-600 selection:text-white text-zinc-900">
+      
+      {/* 🎵 Background Music */}
+      {playMusic && (
+        <iframe
+          width="0"
+          height="0"
+          src="https://www.youtube.com/embed/F5YmLkh8nV4?autoplay=1&loop=1&playlist=F5YmLkh8nV4"
+          title="Valentine Music"
+          frameBorder="0"
+          allow="autoplay"
+        />
+      )}
+
       {yesPressed ? (
         <>
-          <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" />
+          <img
+            src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif"
+            alt="kiss"
+          />
           <div className="text-4xl md:text-6xl font-bold my-4">
-            Ok Yayyyyy!!!
+            Ok Yayyyyy!!! 💖
           </div>
         </>
       ) : (
@@ -51,35 +73,43 @@ export default function Page() {
           <img
             src={lovesvg}
             className="fixed animate-pulse top-10 md:left-24 left-6 md:w-40 w-28"
+            alt="love"
           />
           <img
             src={lovesvg2}
             className="fixed bottom-16 -z-10 animate-pulse md:right-24 right-10 md:w-40 w-32"
+            alt="love"
           />
+
           <img
             className="h-[230px] rounded-lg shadow-lg"
             src="https://gifdb.com/images/high/cute-Love-bear-roses-ou7zho5oosxnpo6k.gif"
+            alt="bear"
           />
+
           <h1 className="text-4xl md:text-6xl my-4 text-center">
-            Will you be my Valentine?
+            Would you like to go on a date with me? 💘
           </h1>
+
           <div className="flex flex-wrap justify-center gap-2 items-center">
             <button
-              className={`bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg mr-4`}
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg mr-4 transition-all"
               style={{ fontSize: yesButtonSize }}
-              onClick={() => setYesPressed(true)}
+              onClick={handleYesClick}
             >
               Yes
             </button>
+
             <button
               onClick={handleNoClick}
-              className=" bg-rose-500 hover:bg-rose-600 rounded-lg text-white font-bold py-2 px-4"
+              className="bg-rose-500 hover:bg-rose-600 rounded-lg text-white font-bold py-2 px-4 transition-all"
             >
               {noCount === 0 ? "No" : getNoButtonText()}
             </button>
           </div>
         </>
       )}
+
       <Footer />
     </div>
   );
@@ -90,12 +120,10 @@ const Footer = () => {
     <a
       className="fixed bottom-2 right-2 backdrop-blur-md opacity-80 hover:opacity-95 border p-1 rounded border-rose-300"
       href="https://github.com/Xeven777/valentine"
-      target="__blank"
+      target="_blank"
+      rel="noreferrer"
     >
-      Made with{" "}
-      <span role="img" aria-label="heart">
-        ❤️
-      </span>
+      Made with ❤️
     </a>
   );
 };
